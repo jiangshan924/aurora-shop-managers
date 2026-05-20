@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Shop Manager - AI-Powered Shopee Management System</title>
+    <meta name="description" content="In-house AI automation system for managing Shopee shops across Southeast Asia">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #0a0e27;
+            color: #e0e6ed;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e6ed;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 150px 0 100px;
+            text-align: center;
+            background: radial-gradient(circle at top, rgba(102, 126, 234, 0.15), transparent);
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #a0aec0;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            font-size: 14px;
+            color: #667eea;
+            margin-bottom: 24px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #e0e6ed;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 60px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 18px;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            color: #a0aec0;
+            font-size: 15px;
+        }
+
+        /* API Section */
+        .api-section {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .api-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+        }
+
+        .api-check {
+            color: #48bb78;
+            font-size: 20px;
+        }
+
+        /* Security */
+        .security {
+            padding: 100px 0;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .security-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .security-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #667eea;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .contact-label {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .contact-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e0e6ed;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: #a0aec0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: 1fr; }
+            .api-grid { grid-template-columns: 1fr; }
+            .security-grid { grid-template-columns: 1fr; }
+            .contact-info { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav">
+            <div class="logo">⚡ Aurora Shop Manager</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#api">APIs</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">🚀 In-House E-commerce Automation Platform</div>
+            <h1>AI-Powered Shopee<br>Shop Management</h1>
+            <p>An internal automation system leveraging Shopee Open APIs and advanced AI 
+            to streamline operations across our shops in Southeast Asian markets.</p>
+            <div class="cta-buttons">
+                <a href="#features" class="btn btn-primary">Explore Features</a>
+                <a href="#contact" class="btn btn-secondary">Contact Us</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">7+</div>
+                    <div class="stat-label">Markets Supported</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">AI Customer Service</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">System Uptime</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;500ms</div>
+                    <div class="stat-label">API Response</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Core Features</h2>
+            <p class="section-subtitle">Comprehensive automation for every aspect of shop operations</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3 class="feature-title">Intelligent Product Listing</h3>
+                    <p class="feature-desc">AI-generated multilingual titles, descriptions, 
+                    and attributes. Bulk upload with automatic category mapping and 
+                    compliance check.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Dynamic Pricing Engine</h3>
+                    <p class="feature-desc">Real-time competitor monitoring with 
+                    margin-aware pricing rules. Automated adjustments within configurable 
+                    safety bounds.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Ad Bid Optimization</h3>
+                    <p class="feature-desc">Machine learning-driven keyword discovery 
+                    and bid optimization. ROAS-based budget allocation for maximum 
+                    advertising efficiency.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">AI Customer Service</h3>
+                    <p class="feature-desc">24/7 automated responses powered by GPT-4o 
+                    in multiple local languages. Smart escalation to human agents for 
+                    complex issues.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Analytics Dashboard</h3>
+                    <p class="feature-desc">Real-time KPI tracking across multiple 
+                    shops. Sales trends, ad performance, customer insights, and 
+                    inventory health.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3 class="feature-title">Order Automation</h3>
+                    <p class="feature-desc">Automatic order processing, waybill generation, 
+                    multi-warehouse inventory sync, and shipping label printing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Usage -->
+    <section class="api-section" id="api">
+        <div class="container">
+            <h2 class="section-title">Shopee Open APIs</h2>
+            <p class="section-subtitle">APIs utilized in our system</p>
+
+            <div class="api-grid">
+                <div class="api-item">
+                    <span class="api-check">✓</span>
+                    <span><strong>Product API</strong> - List, add, update, price, stock</span>
+                </div>
+                <div class="api-item">
+                    <span class="api-check">✓</span>
+                    <span><strong>Order API</strong> - List, detail, ship, cancel</span>
+                </div>
+                <div class="api-item">
+                    <span class="api-check">✓</span>
+                    <span><strong>Logistics API</strong> - Shipping, tracking, waybill</span>
+                </div>
+                <div class="api-item">
+                    <span class="api-check">✓</span>
+                    <span><strong>Ads API</strong> - Campaign, keyword, performance</span>
+                </div>
+                <div class="api-item">
+                    <span class="api-check">✓</span>
+                    <span><strong>SellerChat API</strong> - Conversation, message</span>
+                </div>
+                <div class="api-item">
+                    <span class="api-check">✓</span>
+                    <span><strong>Webhook</strong> - Order, chat, item updates</span>
+                </div>
+                <div class="api-item">
+                    <span class="api-check">✓</span>
+                    <span><strong>Voucher API</strong> - Promotion management</span>
+                </div>
+                <div class="api-item">
+                    <span class="api-check">✓</span>
+                    <span><strong>Shop API</strong> - Profile, settings</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security -->
+    <section class="security" id="security">
+        <div class="container">
+            <h2 class="section-title">Security & Compliance</h2>
+            <p class="section-subtitle">Enterprise-grade security at every layer</p>
+
+            <div class="security-grid">
+                <div class="security-item">
+                    <h3 class="security-title">🔐 Data Encryption</h3>
+                    <p>AES-256 encryption at rest for all sensitive data including 
+                    access tokens. TLS 1.3 for all API communications with certificate pinning.</p>
+                </div>
+                <div class="security-item">
+                    <h3 class="security-title">🔑 Token Management</h3>
+                    <p>Access tokens stored in HashiCorp Vault with automatic rotation. 
+                    Strict role-based access control with MFA for admin operations.</p>
+                </div>
+                <div class="security-item">
+                    <h3 class="security-title">📋 Compliance</h3>
+                    <p>GDPR, Singapore PDPA, Malaysia PDPA compliant. Regular security 
+                    audits. ISO 27001 certified data centers.</p>
+                </div>
+                <div class="security-item">
+                    <h3 class="security-title">📊 Audit Logs</h3>
+                    <p>All API calls logged with 90-day retention. Real-time anomaly 
+                    detection with automated alerts for suspicious activities.</p>
+                </div>
+                <div class="security-item">
+                    <h3 class="security-title">🛡️ Infrastructure</h3>
+                    <p>Hosted on AWS Singapore with multi-AZ deployment. DDoS protection, 
+                    WAF, and intrusion detection systems in place.</p>
+                </div>
+                <div class="security-item">
+                    <h3 class="security-title">🔄 Backup & DR</h3>
+                    <p>Daily automated backups with point-in-time recovery. 
+                    Multi-region disaster recovery with RPO &lt;1h, RTO &lt;4h.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Information</h2>
+            <p class="section-subtitle">For Shopee Open Platform review team</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">Technical Contact</div>
+                    <div class="contact-value">dev@yourdomain.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Business Contact</div>
+                    <div class="contact-value">ops@yourdomain.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Emergency 24/7</div>
+                    <div class="contact-value">+86 138-xxxx-xxxx</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p>© 2025 Aurora Shop Manager. Internal use only. Not affiliated with Shopee.</p>
+        </div>
+    </footer>
+</body>
+</html>
